@@ -6,7 +6,7 @@ This repository contains Agent Zero skills, not a conventional application packa
 Most files are Markdown skill definitions with YAML frontmatter.
 There is currently one executable helper script: `good-morning-trader/scripts/market_data.py`.
 
-This guide is for coding agents operating inside `/home/chris/Coding/AgentZero/Skills`.
+This guide is for coding agents operating inside `AgentZero/Skills`.
 Prefer small, targeted edits that preserve the existing structure and writing style.
 
 ## Rule Sources
