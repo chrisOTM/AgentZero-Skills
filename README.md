@@ -17,29 +17,14 @@ Most of the repo is documentation-first: each skill is primarily defined in a `S
 A daily pre-trading briefing skill for options sellers.
 It focuses on volatility, macro events, market sentiment, and technical structure before market open.
 
-Files of note:
-
-- `good-morning-trader/SKILL.md`
-- `good-morning-trader/README.md`
-- `good-morning-trader/scripts/market_data.py`
-
 ### `life-coach`
 
 A German-language life coaching skill for personal development, goal setting, habit building, decision support, and self-reflection.
-
-Files of note:
-
-- `life-coach/SKILL.md`
 
 ### `value-stock-analyzer`
 
 A detailed fair value stock analysis skill for value and dividend investing.
 It includes a structured, multi-step methodology and example output.
-
-Files of note:
-
-- `value-stock-analyzer/SKILL.md`
-- `value-stock-analyzer/examples/CMCSA_Fair_Value_Analysis.md`
 
 ## File Conventions
 
