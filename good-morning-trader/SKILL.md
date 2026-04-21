@@ -1,7 +1,7 @@
 ---
 name: "good-morning-trader"
 description: "Daily pre-trading briefing skill for options sellers (short puts, calls, spreads, iron condors). Analyzes volatility dashboard, macro calendar, market sentiment, and technical analysis to provide actionable trading signals with stoplight ratings."
-version: "1.0.0"
+version: "1.3.0"
 author: "TradingAssistant Project"
 tags: ["trading", "options", "volatility", "morning-routine", "pre-market", "stillhalter", "vix", "sentiment"]
 trigger_patterns:
@@ -17,7 +17,7 @@ trigger_patterns:
   - "morgen analyse"
   - "trader briefing"
   - "options briefing"
-allowed_tools: ["call_subordinate", "code_execution_tool", "search_engine", "document_query"]
+allowed_tools: ["call_subordinate", "code_execution_tool", "search_engine", "document_query"]  # Using search_engine for sentiment data
 ---
 
 # 🌅 Good Morning Trader – Daily Pre-Trading Briefing
@@ -39,32 +39,64 @@ This skill activates when the trader needs their complete morning routine briefi
 
 **PRIMARY METHOD: Use Python/yfinance script for reliable data**
 
-Execute the market data collection script first:
+Execute the optimized market data collection script first:
 ```python
-python /a0/usr/skills/good-morning-trader/scripts/market_data.py
+python /a0/usr/projects/tradingassistant/.a0proj/skills/good-morning-trader/scripts/market_data_optimized.py
 ```
 
-This provides via yfinance (Yahoo Finance API):
+This provides via yfinance (Yahoo Finance API) with caching:
 - VIX spot with classification
+- VVIX if available
 - SPY technical levels (20/50/200 SMA)
-- Global markets (Nikkei, DAX)
-- Macro assets (10Y Treasury, Gold, Oil)
+- Global markets (Nikkei, DAX, FTSE, Shanghai)
+- Macro assets (10Y Treasury, Gold, Oil, Dollar Index)
 - Automatic Buying Power calculation
+- Cached results to prevent repeated API calls
 
-**SECONDARY METHOD: Researcher for sentiment/macro data**
+**OPTIMIZED SECONDARY METHOD: search_engine for sentiment/macro data**
 
-For data not available via yfinance, delegate to researcher:
-- VIX term structure (VIX9D, VIX3M, VIX6M) - check contango/backwardation
-- VVIX, SKEW index
-- CNN Fear & Greed Index
-- CBOE Put/Call Ratios
-- AAII Sentiment Survey
-- Market breadth (% SPX > 50-MA/200-MA)
-- Today's macro calendar (Fed speakers, economic data)
-- Geopolitical risks
+For data not available via yfinance, use search_engine queries:
+1. **CBOE Put/Call Ratios**: Search "CBOE Put Call ratio [current date]"
+2. **AAII Sentiment Survey**: Search "AAII sentiment survey bull bear spread [current date]"
+3. **CNN Fear & Greed Index**: Search "CNN Fear Greed Index current reading [date]"
+4. **Market Breadth**: Search "S&P 500 stocks above 50-day moving average [date]"
+5. **VIX Term Structure**: Search "VIX 3M VIX6M term structure [date]"
+6. **Economic Calendar**: Search "economic calendar [today's date] Fed speakers"
+7. **Geopolitical News**: Search "market news geopolitical risks today"
 
-**Always cross-check critical levels with yfinance as primary source.**
+**Avoid browser_agent** - Use search_engine for faster, more reliable data retrieval on news/sentiment websites.
 
+**Cross-check critical levels with yfinance as primary source.**
+
+
+
+### Phase 1.5: News Collection and Impact Assessment
+
+**ALWAYS include the most recent and relevant financial/market news in the briefing.**
+
+After gathering market data, execute a dedicated news search to capture real-time developments that could affect volatility, sentiment, and technical levels.
+
+**Primary search query:**
+- "latest financial news market news today [current date]"
+- "stock market headlines today [current date]"
+- "market news geopolitical risks today"
+
+**Key news categories to monitor:**
+1. **Geopolitical events** (Iran‑Israel, Strait of Hormuz, trade tensions)
+2. **Central bank announcements** (Fed, ECB, BOJ)
+3. **Major corporate news** (CEO changes, earnings surprises, M&A)
+4. **Economic data surprises** (CPI, NFP, GDP revisions)
+5. **Sector‑specific developments** (tech regulation, energy supply, biotech approvals)
+
+**News impact assessment:**
+- For each major headline, determine which analysis block(s) it affects (Volatility, Macro, Sentiment, Technical).
+- Rate the impact as High, Medium, or Low.
+- Incorporate the news implications directly into each block's ACTION rating.
+
+**Output integration:**
+- Present a **News Bulletin** section at the beginning of the briefing, summarizing the 3‑5 most relevant headlines with impact ratings.
+- Reference specific news items within each analysis block to justify rating adjustments.
+- Ensure trading recommendations reflect the combined data+news picture.
 ---
 
 ### Phase 2: Structured Analysis
@@ -199,6 +231,12 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 ```markdown
 # 🌅 GOOD MORNING TRADER – [DATE]
 
+## 📰 AKTUELLE NACHRICHTEN (News Bulletin)
+
+**[Impact: High/Medium/Low]** [Headline 1] – [Brief implication]
+**[Impact: High/Medium/Low]** [Headline 2] – [Brief implication]
+...
+
 ---
 
 ## BLOCK 1: VOLATILITY DASHBOARD
@@ -206,8 +244,8 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 ### VIX & Volatility Structure
 | Indicator | Value | Assessment |
 |-----------|-------|------------|
-| VIX Spot | [X.XX] | [Range] |
 | VIX9D | [X.XX] | - |
+| VIX Spot | [X.XX] | [Range] |
 | VIX3M | [X.XX] | - |
 | Term Structure | [Contango/Backwardation] | [Signal] |
 | VVIX | [XXX.XX] | [Level] |
@@ -288,11 +326,8 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 2. [Action item 2]
 3. [Action item 3]
 
-### Scenario Planning:
-| Scenario | Trigger | Action |
-|----------|---------|--------|
-| Bull | [Condition] | [Response] |
-| Bear | [Condition] | [Response] |
+| 1.1.0 | 2026-04-16 | Optimized: browser_agent focus, caching, avoids web scraping bottlenecks |
+| 1.2.0 | 2026-04-20 | Replaced browser_agent with search_engine for sentiment/macro data collection |
 | Base | [Condition] | [Response] |
 
 **Next Check:** [Time/Condition for update]
@@ -335,7 +370,9 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 >
 > I'll prepare your complete pre-trading briefing. Let me gather all market data first...
 >
-> *[Delegates to researcher for data collection]*
+> *[Executes optimized market_data_optimized.py script]*
+>
+> *[Uses browser_agent for sentiment/macro data extraction]*
 >
 > *[After receiving data, proceeds with 4-block analysis]*
 >
@@ -365,6 +402,12 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 - Focus on hedging existing positions
 - Paper trade only or watchlist preparation
 
+### Optimized Data Collection Rules:
+- **Timeout settings**: Set 30s timeout for each data request
+- **Caching**: Use script caching for non-time-sensitive data
+- **Fallbacks**: If browser_agent fails, use alternative sources
+- **Verification**: Cross-check critical numbers with multiple sources
+
 ### Macro Event Rules:
 - **Fed Days:** No new positions 2 hours before/after
 - **NFP/CPI:** Flat or hedged before 8:30 ET
@@ -372,22 +415,12 @@ Analyze all data blocks sequentially. Each block ends with a clear stoplight rec
 
 ---
 
-## Sub-Agents
+## File Updates
 
-### researcher (Data Collection)
-**Role:** Market data specialist  
-**Task:** Gather all real-time market data for briefing  
-**Profile:** researcher
-
----
-
-## Files
-
-### scripts/generate_briefing.py
-Optional helper script to format calculations
-
-### templates/
-Optional templates for consistent output formatting
+The skill now includes:
+1. **market_data_optimized.py** - Cached yfinance script with error handling
+2. **Updated SKILL.md** - browser_agent recommendations, avoidance of web scraping bottlenecks
+3. **Version 1.1.0** - Optimized for efficiency and reliability
 
 ---
 
@@ -396,7 +429,16 @@ Optional templates for consistent output formatting
 | Version | Date | Changes |
 |-----------|------|---------|
 | 1.0.0 | 2026-03-30 | Initial release with 4-block structure |
+| 1.1.0 | 2026-04-16 | Optimized: browser_agent focus, caching, avoids web scraping bottlenecks |
 
 ---
 
 *This skill is optimized for European-based option sellers trading US and European markets with focus on capital preservation and consistent premium income.*
+
+Files (use skills_tool method=read_file to open):
+/a0/usr/projects/tradingassistant/.a0proj/skills/good-morning-trader/
+├── scripts/
+│   ├── market_data_optimized.py  <-- Primary script
+│   └── market_data.py            <-- Legacy script
+├── README.md
+└── SKILL.md
