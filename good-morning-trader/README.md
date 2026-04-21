@@ -17,9 +17,9 @@ Each block ends with a stoplight‑style action rating so the final output can q
 
 ## Main Files
 
-- `good-morning-trader/SKILL.md`
-- `good-morning-trader/README.md`
-- `good-morning-trader/scripts/market_data.py`
+- `good‑morning‑trader/SKILL.md`
+- `good‑morning‑trader/README.md`
+- `good‑morning‑trader/scripts/market_data_optimized.py`
 
 ## Typical Activation
 
@@ -107,5 +107,3 @@ For edits to this skill, verify:
 - **1.0.0** (2026‑03‑30): Initial release with 4‑block structure.
 
 See the repository‑level `AGENTS.md` for broader agent guidance.
-
-See the repository-level `AGENTS.md` for broader agent guidance.
