@@ -16,9 +16,7 @@ Diese Analyse dient als Beispielimplementierung der 11-stufigen Fair-Value-Analy
 
 ## Vollständige Analyse
 
-Die vollständige Fair-Value-Analyse für Comcast (CMCSA) befindet sich unter:
-
-`/a0/usr/projects/value_investing/CMCSA_Fair_Value_Analysis_2026.md`
+Die vollständige Fair-Value-Analyse für Comcast (CMCSA) befindet sich im internen Projektverzeichnis.
 
 ---
 
@@ -118,12 +116,12 @@ Die vollständige Fair-Value-Analyse für Comcast (CMCSA) befindet sich unter:
 
 Die vollständigen Analyse-Dateien wurden gespeichert unter:
 
-| Datei | Beschreibung |
-|-------|-------------|
-| `/a0/usr/projects/value_investing/CMCSA_Fair_Value_Analysis_2026.md` | Vollständige Markdown-Analyse |
-| `/a0/usr/projects/value_investing/cmcsa_fair_value_analysis.json` | JSON-Zusammenfassung |
-| `/a0/usr/projects/value_investing/cmcsa_analysis_step1_3.json` | Finanzanalyse Steps 1-3 |
-| `/a0/usr/projects/value_investing/cmcsa_financial_data_full.json` | 10-Jahres Finanzdaten |
+|| Datei | Beschreibung |
+||-------|-------------|
+|| `[internes Verzeichnis]/CMCSA_Fair_Value_Analysis_2026.md` | Vollständige Markdown-Analyse |
+|| `[internes Verzeichnis]/cmcsa_fair_value_analysis.json` | JSON-Zusammenfassung |
+|| `[internes Verzeichnis]/cmcsa_analysis_step1_3.json` | Finanzanalyse Steps 1-3 |
+|| `[internes Verzeichnis]/cmcsa_financial_data_full.json` | 10-Jahres Finanzdaten |
 
 ---
 
