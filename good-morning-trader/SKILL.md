@@ -41,7 +41,7 @@ This skill activates when the trader needs their complete morning routine briefi
 
 Execute the optimized market data collection script first:
 ```python
-python /a0/usr/projects/tradingassistant/.a0proj/skills/good-morning-trader/scripts/market_data_optimized.py
+python market_data_optimized.py
 ```
 
 This provides via yfinance (Yahoo Finance API) with caching:
@@ -436,7 +436,7 @@ The skill now includes:
 *This skill is optimized for European-based option sellers trading US and European markets with focus on capital preservation and consistent premium income.*
 
 Files (use skills_tool method=read_file to open):
-/a0/usr/projects/tradingassistant/.a0proj/skills/good-morning-trader/
+[skill directory]/
 ├── scripts/
 │   ├── market_data_optimized.py  <-- Primary script
 │   └── market_data.py            <-- Legacy script
